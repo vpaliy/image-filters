@@ -28,6 +28,8 @@ public abstract class ImageFilter {
         return bitmap.getHeight();
     }
 
+    public abstract ImageFilter setBitmap(Bitmap bitmap);
+
     static {
         System.loadLibrary(FILTERS_LIB);
     }

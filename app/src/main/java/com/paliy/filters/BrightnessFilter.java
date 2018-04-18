@@ -4,7 +4,7 @@ package com.paliy.filters;
 import android.graphics.Bitmap;
 
 public final class BrightnessFilter extends ImageFilter {
-    private int factor;
+    private int factor = 1;
 
     public BrightnessFilter(Bitmap bitmap) {
         super(bitmap);
@@ -21,6 +21,11 @@ public final class BrightnessFilter extends ImageFilter {
 
     public int getFactor() {
         return factor;
+    }
+
+    @Override
+    public ImageFilter setBitmap(Bitmap bitmap) {
+        return new BrightnessFilter(bitmap, factor);
     }
 
     @Override

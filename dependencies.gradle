@@ -1,0 +1,19 @@
+ext {
+
+    supportVersion = "25.1.0"
+    glideVersion = "3.7.0"
+    textDrawableVersion = "1.0.1"
+    circleImageVersion = "2.1.0"
+    constraintLayoutVersion = "1.0.2"
+
+
+    dependencies = [
+            glide              : "com.github.bumptech.glide:glide:${glideVersion}",
+            supportAppCompat   : "com.android.support:appcompat-v7:${supportVersion}",
+            supportDesign      : "com.android.support:design:${supportVersion}",
+            recyclerView       : "com.android.support:recyclerview-v7:${supportVersion}",
+            circleImage        : "de.hdodenhof:circleimageview:${circleImageVersion}",
+            constraintLayout   : "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
+    ]
+
+}

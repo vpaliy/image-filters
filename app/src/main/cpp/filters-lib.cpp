@@ -6,7 +6,6 @@
 static inline jintArray toJIntArray(JNIEnv *env, jint size, jint *arr) {
     jintArray result = env->NewIntArray(size);
     env->SetIntArrayRegion(result, 0, size, arr);
-
     return result;
 }
 

@@ -23,6 +23,11 @@ public class ContrastFilter extends ImageFilter {
     }
 
     @Override
+    public ImageFilter setBitmap(Bitmap bitmap) {
+        return new ContrastFilter(bitmap, factor);
+    }
+
+    @Override
     public Bitmap process() {
         final int[] pixels = NativeFilters.contrast(getWidth(), getHeight(), getPixels(), factor);
         return Bitmap.createBitmap(pixels, getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
