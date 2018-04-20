@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.paliy.filters.BrightnessFilter
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun load(thumbnail: Thumbnail) {
+    progressBar.show()
     Glide.with(this)
         .load(R.drawable.sunset)
         .asBitmap()
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                   .setBitmap(resource).process()
             }).subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally({ progressBar.hide() })
                 .subscribe({
                   currentImage.setImageBitmap(it)
                 }, Throwable::printStackTrace)
@@ -58,17 +61,26 @@ class MainActivity : AppCompatActivity() {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({
           adapter.data = it
+          load(it.first())
         }, Throwable::printStackTrace)
   }
 
   private fun provideThumbnails(bitmap: Bitmap): MutableList<Thumbnail> {
     val list = mutableListOf<Thumbnail>()
-    (1..10).forEach {
+    (1..255).forEach {
       val brightness = Thumbnail(R.string.brightness, BrightnessFilter(bitmap, it))
       val contrast = Thumbnail(R.string.contrast, ContrastFilter(bitmap, it))
       list += contrast
       list += brightness
     }
     return list
+  }
+
+  private fun View.show() {
+    visibility = View.VISIBLE
+  }
+
+  private fun View.hide() {
+    visibility = View.GONE
   }
 }
