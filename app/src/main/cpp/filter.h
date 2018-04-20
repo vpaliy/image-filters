@@ -7,8 +7,8 @@
 
 class filter {
 protected:
-    int height;
     int width;
+    int height;
     int *pixels;
 public:
     filter(int, int, int *);
@@ -22,7 +22,7 @@ inline filter::filter(int width, int height, int *pixels)
         : width(width), height(height), pixels(pixels) {}
 
 inline filter::~filter() {
-    delete[] pixels;
+    //delete[] pixels;
 }
 
 #endif //IMAGE_FILTERS_FILTER_H

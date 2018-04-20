@@ -5,6 +5,8 @@ ext {
     textDrawableVersion = "1.0.1"
     circleImageVersion = "2.1.0"
     constraintLayoutVersion = "1.0.2"
+    rxJavaVersion = '2.0.2'
+    rxAndroidVersion = '2.0.1'
 
 
     dependencies = [
@@ -14,6 +16,8 @@ ext {
             recyclerView       : "com.android.support:recyclerview-v7:${supportVersion}",
             circleImage        : "de.hdodenhof:circleimageview:${circleImageVersion}",
             constraintLayout   : "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
+            RxJava             : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            RxAndroid          : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
     ]
 
 }

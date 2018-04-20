@@ -1,15 +1,20 @@
 package com.paliy.filters.ui
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.paliy.filters.BrightnessFilter
+import com.paliy.filters.ContrastFilter
 import com.paliy.filters.R
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
+@SuppressLint("RxLeakedSubscription")
 class MainActivity : AppCompatActivity() {
 
   private val adapter by lazy {
@@ -19,31 +24,51 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
-    filters.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-    filters.adapter = adapter
     prepareThumbnails()
+    filters.adapter = adapter
   }
 
   private fun load(thumbnail: Thumbnail) {
     Glide.with(this)
         .load(R.drawable.sunset)
         .asBitmap()
-        .into(object:ImageViewTarget<Bitmap>(currentImage) {
+        .into(object : ImageViewTarget<Bitmap>(currentImage) {
           override fun setResource(resource: Bitmap?) {
-            currentImage.setImageBitmap(thumbnail.imageFilter
-                .setBitmap(resource).process())
+            Single.fromCallable({
+              thumbnail.imageFilter
+                  .setBitmap(resource).process()
+            }).subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                  currentImage.setImageBitmap(it)
+                }, Throwable::printStackTrace)
           }
         })
   }
 
   private fun prepareThumbnails() {
-    val item = Glide.with(this)
-        .load(R.drawable.sunset)
-        .asBitmap()
-        .centerCrop()
-        .into(150,150).get()
-    val brightness = Thumbnail(R.string.brightness, BrightnessFilter(item, 10))
-    val contrast = Thumbnail(R.string.brightness, BrightnessFilter(item, 10))
-    adapter.data = mutableListOf(brightness, contrast)
+    Single.fromCallable {
+      Glide.with(this)
+          .load(R.drawable.sunset)
+          .asBitmap()
+          .centerCrop()
+          .into(150, 150).get()
+    }.flatMap { Single.just(provideThumbnails(it)) }
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+          adapter.data = it
+        }, Throwable::printStackTrace)
+  }
+
+  private fun provideThumbnails(bitmap: Bitmap): MutableList<Thumbnail> {
+    val list = mutableListOf<Thumbnail>()
+    (1..10).forEach {
+      val brightness = Thumbnail(R.string.brightness, BrightnessFilter(bitmap, it))
+      val contrast = Thumbnail(R.string.contrast, ContrastFilter(bitmap, it))
+      list += contrast
+      list += brightness
+    }
+    return list
   }
 }

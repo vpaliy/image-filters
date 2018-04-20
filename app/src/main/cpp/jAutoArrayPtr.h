@@ -11,11 +11,11 @@ template<typename _Ta, typename _Tp>
 class jAutoArrayPtr {
 private:
     JNIEnv *env;
-    _Ta &_array;
+    _Ta _array;
     _Tp *_pointer;
 
 public:
-    jAutoArrayPtr(JNIEnv *, _Ta);
+    jAutoArrayPtr(JNIEnv *, _Ta) noexcept ;
 
     ~jAutoArrayPtr();
 
@@ -23,7 +23,7 @@ public:
 
     jAutoArrayPtr<_Ta, _Tp> &operator=(const jAutoArrayPtr<_Ta, _Tp> &) = delete;
 
-    inline _Tp *get() const noexcept { return _pointer; }
+    inline _Tp *get() const { return _pointer; }
 };
 
 template<typename _Ta, typename _Tp>

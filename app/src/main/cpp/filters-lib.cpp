@@ -1,9 +1,12 @@
 #include <jni.h>
-#include "include/jAutoArrayPtr.h"
-#include "include/brightness.h"
-#include "include/contrast.h"
+#include "jAutoArrayPtr.h"
+#include "brightness.h"
+#include "contrast.h"
+#include <android/log.h>
+#define	TAG    "image-filters"
+#define LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__)
 
-static inline jintArray toJIntArray(JNIEnv *env, jint size, jint *arr) {
+static jintArray toJIntArray(JNIEnv *env, jint size, jint *arr) {
     jintArray result = env->NewIntArray(size);
     env->SetIntArrayRegion(result, 0, size, arr);
     return result;
@@ -15,7 +18,7 @@ Java_com_paliy_filters_NativeFilters_brightness(JNIEnv *env, jclass type, jint w
                                                 jintArray pixels_, jint factor) {
     jAutoArrayPtr<jintArray, jint> _ptr(env, pixels_);
     brightness _brightness = brightness(width, height, _ptr.get(), factor);
-    return toJIntArray(env, width * height, _brightness.process());
+    return  toJIntArray(env, width * height, _brightness.process());
 }
 
 extern "C"

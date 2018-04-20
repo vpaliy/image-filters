@@ -1,30 +1,36 @@
 package com.paliy.filters.ui
 
+import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.paliy.filters.R
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.adapter_thumbnail_item.view.*
 
-class ImageAdapter (val callback:(Thumbnail)->Unit) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class ImageAdapter(val callback: (Thumbnail) -> Unit) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
   var data = mutableListOf<Thumbnail>()
     set(value) {
-      if (field != value) {
-        field = value
-        notifyDataSetChanged()
-      }
+      field = value
+      notifyDataSetChanged()
     }
 
   inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+    @SuppressLint("RxLeakedSubscription")
     fun bind(): Unit = with(itemView) {
       itemView.setOnClickListener {
         callback(data[adapterPosition])
       }
       val item = data[adapterPosition]
-      title.text = item.filter
-      image.setImageBitmap(item.imageFilter.process())
+      title.setText(item.filter)
+      Single.fromCallable({
+        item.imageFilter.process()
+      }).subscribeOn(Schedulers.computation())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe({ image.setImageBitmap(it) }, Throwable::printStackTrace)
     }
   }
 

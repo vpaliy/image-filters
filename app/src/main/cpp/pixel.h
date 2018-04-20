@@ -10,7 +10,7 @@ class pixel final {
 private:
     int color;
 public:
-    pixel(int);
+    explicit pixel(int);
     int R();
     int G();
     int B();
@@ -20,4 +20,4 @@ public:
 };
 
 
-#endif //IMAGE_FILTERS_PIXEL_H
+#endif
