@@ -1,6 +1,3 @@
-//
-// Created by Vasyl Paliy on 4/16/18.
-//
 
 #ifndef IMAGE_FILTERS_BRIGHTNESS_H
 #define IMAGE_FILTERS_BRIGHTNESS_H
@@ -8,15 +5,21 @@
 #include "filter.h"
 
 class brightness final : public filter {
-private:
-    int factor;
 public:
-    brightness(int, int, int *, int = 1);
+  struct options {
+    int factor;
+    explicit options(int factor)
+            : factor(factor) {}
+  };
 
-    int *process() override;
+  brightness(width, height, std::shared_ptr<pixels_wrapper>, options);
 
-    void setFactor(int factor);
+  void setFactor(options);
+
+  jintArray process() override;
+
+private:
+  options _options;
 };
 
-
-#endif //IMAGE_FILTERS_BRIGHTNESS_H
+#endif

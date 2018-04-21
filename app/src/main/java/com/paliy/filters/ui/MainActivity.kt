@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 @SuppressLint("RxLeakedSubscription")
 class MainActivity : AppCompatActivity() {
 
-  private val adapter by lazy {
+  private val adapter by lazy(LazyThreadSafetyMode.NONE){
     ImageAdapter(this::load)
   }
 

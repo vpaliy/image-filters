@@ -1,28 +1,46 @@
-//
-// Created by Vasyl Paliy on 4/16/18.
-//
 
 #ifndef IMAGE_FILTERS_FILTER_H
 #define IMAGE_FILTERS_FILTER_H
 
-class filter {
-protected:
-    int width;
-    int height;
-    int *pixels;
-public:
-    filter(int, int, int *);
+#include"auto_array_ptr.h"
+#include<memory>
 
-    virtual ~filter();
-
-    virtual int* process() = 0;
+struct width {
+  int value;
+  explicit width(int value)
+          : value(value) {}
 };
 
-inline filter::filter(int width, int height, int *pixels)
-        : width(width), height(height), pixels(pixels) {}
+struct height {
+  int value;
+  explicit height(int value)
+          : value(value) {}
+};
 
-inline filter::~filter() {
-    //delete[] pixels;
-}
+struct size {
+  const width _width;
+  const height _height;
 
-#endif //IMAGE_FILTERS_FILTER_H
+  inline size(const width &_width, const height &_height)
+          : _width(_width), _height(_height) {}
+
+  inline operator int() {
+    return _width.value * _height.value;
+  }
+};
+
+class filter {
+protected:
+  std::shared_ptr<pixels_wrapper> _pointer;
+  size _size;
+public:
+  filter(width, height, std::shared_ptr<pixels_wrapper>);
+
+  virtual jintArray process() = 0;
+};
+
+inline filter::filter(width _width, height _height,
+                      std::shared_ptr<pixels_wrapper> _pointer)
+        : _size(_width, _height), _pointer(_pointer) {}
+
+#endif

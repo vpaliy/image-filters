@@ -1,6 +1,4 @@
-//
-// Created by Vasyl Paliy on 4/17/18.
-//
+
 
 #ifndef IMAGE_FILTERS_CONTRAST_H
 #define IMAGE_FILTERS_CONTRAST_H
@@ -9,14 +7,21 @@
 #include "filter.h"
 
 class contrast final : public filter {
-private:
-    int factor;
 public:
-    contrast(int, int, int *, int = 1);
+  struct options {
+    int factor;
+    explicit options(int factor)
+            : factor(factor) {}
+  };
 
-    void setFactor(int);
+  contrast(width, height, std::shared_ptr<pixels_wrapper>, options);
 
-    int* process() override ;
+  void setFactor(options);
+
+  jintArray process() override;
+
+private:
+  options _options;
 };
 
 
