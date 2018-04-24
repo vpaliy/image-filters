@@ -1,6 +1,5 @@
 package com.paliy.filters;
 
-
 import android.graphics.Bitmap;
 
 public final class BrightnessFilter extends ImageFilter {

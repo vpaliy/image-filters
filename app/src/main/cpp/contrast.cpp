@@ -3,11 +3,13 @@
 #include "contrast.h"
 #include "pixel.h"
 
-contrast::contrast(width _width, height _height,
-                   std::shared_ptr<pixels_wrapper> _pointer, options _options)
+using namespace filters;
+
+contrast::contrast(width const &_width, height const &_height,
+                   std::shared_ptr<pixels_wrapper> _pointer, options const &_options)
         : filter(_width, _height, _pointer), _options(_options) {}
 
-void contrast::setFactor(options options_) {
+void contrast::setFactor(options const &options_) {
   this->_options = options_;
 }
 

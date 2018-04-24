@@ -3,11 +3,13 @@
 #include "pixel.h"
 #include <algorithm>
 
-brightness::brightness(width _width, height _height,
-                       std::shared_ptr<pixels_wrapper> _pointer, options _options)
+using namespace filters;
+
+brightness::brightness(width const &_width, height const &_height,
+                       std::shared_ptr<pixels_wrapper> _pointer, options const &_options)
         : filter(_width, _height, _pointer), _options(_options) {}
 
-void brightness::setFactor(options _options) {
+void brightness::setFactor(options const &_options) {
   this->_options = _options;
 }
 
