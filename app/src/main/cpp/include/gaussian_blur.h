@@ -6,7 +6,7 @@
 #include "filter.h"
 
 namespace filters {
-  class gaussian_blur : filter {
+  class gaussian_blur final : filter {
   public:
     struct options {
       double sigma;
@@ -24,4 +24,4 @@ namespace filters {
     options _options;
   };
 }
-#endif //IMAGE_FILTERS_GAUSSIAN_BLUR_H
+#endif

@@ -4,6 +4,7 @@ add_library(filters-lib  SHARED
              contrast.cpp
              pixel.cpp
              gaussian_blur.cpp
+             gamma_correction.cpp
              filters-lib.cpp)
 
 find_library(log-lib
