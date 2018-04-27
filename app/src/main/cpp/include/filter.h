@@ -34,13 +34,15 @@ namespace filters {
     std::shared_ptr<pixels_wrapper> _pointer;
   public:
     filter(width const &, height const &, std::shared_ptr<pixels_wrapper>);
-
+    ~filter();
     virtual jintArray process() = 0;
   };
 
   inline filter::filter(width const &_width, height const &_height,
                         std::shared_ptr<pixels_wrapper> _pointer)
           : _size(_width, _height), _pointer(_pointer) {}
+
+  inline filter::~filter() {}
 }
 
 #endif

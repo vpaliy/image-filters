@@ -1,6 +1,6 @@
 
-#include "brightness.h"
-#include "pixel.h"
+#include "include/brightness.h"
+#include "include/pixel.h"
 #include <algorithm>
 
 using namespace filters;
@@ -27,5 +27,5 @@ jintArray brightness::process() {
 
     pixels[i] = pixel::fromRGBA(_pixel.alpha(), r, g, b);
   }
-  return _pointer.get()->copy(_size);
+  return _pointer->getArray();
 }

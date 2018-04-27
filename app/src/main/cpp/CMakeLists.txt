@@ -3,6 +3,7 @@ add_library(filters-lib  SHARED
              brightness.cpp
              contrast.cpp
              pixel.cpp
+             gaussian_blur.cpp
              filters-lib.cpp)
 
 find_library(log-lib

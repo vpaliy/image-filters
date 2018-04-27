@@ -1,5 +1,5 @@
 
-#include "pixel.h"
+#include "include/pixel.h"
 
 pixel::pixel(int color) : color(color) {}
 

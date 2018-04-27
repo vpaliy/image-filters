@@ -17,3 +17,4 @@ Java_com_paliy_filters_NativeFilters_contrast(JNIEnv *env, jclass type, jint wid
 }
 #endif
 #endif
+#endif

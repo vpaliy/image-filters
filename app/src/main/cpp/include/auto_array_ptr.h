@@ -18,7 +18,7 @@ namespace filters {
 
     ~auto_array_ptr();
 
-    _Ta copy(jint) const;
+    _Ta getArray() const;
 
     _Tp *get() const;
 
@@ -49,16 +49,14 @@ namespace filters {
     return _pointer;
   }
 
+  template<typename _Ta, typename _Tp>
+  inline _Ta auto_array_ptr<_Ta, _Tp>::getArray() const {
+    return _array;
+  }
+
   template<>
   inline auto_array_ptr<jintArray, jint>::auto_array_ptr(JNIEnv *env, jintArray _array) noexcept
           : env(env), _array(_array), _pointer(env->GetIntArrayElements(_array, nullptr)) {}
-
-  template<>
-  inline jintArray auto_array_ptr<jintArray, jint>::copy(jint size) const {
-    jintArray result = env->NewIntArray(size);
-    env->SetIntArrayRegion(result, 0, size, _pointer);
-    return result;
-  };
 
   template<>
   inline auto_array_ptr<jintArray, jint>::~auto_array_ptr() {

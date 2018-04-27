@@ -1,8 +1,8 @@
 #include <jni.h>
-#include "auto_array_ptr.h"
-#include "brightness.h"
-#include "contrast.h"
-#include "filters-lib.h"
+#include "include/auto_array_ptr.h"
+#include "include/brightness.h"
+#include "include/contrast.h"
+#include "include/filters-lib.h"
 
 using namespace filters;
 

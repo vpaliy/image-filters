@@ -1,7 +1,7 @@
 
 #include <algorithm>
-#include "contrast.h"
-#include "pixel.h"
+#include "include/contrast.h"
+#include "include/pixel.h"
 
 using namespace filters;
 
@@ -27,5 +27,5 @@ jintArray contrast::process() {
 
     pixels[i] = pixel::fromRGBA(_pixel.alpha(), r, g, b);
   }
-  return _pointer.get()->copy(_size);
+  return _pointer->getArray();
 }

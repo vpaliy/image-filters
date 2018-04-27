@@ -4,7 +4,7 @@
 
 class pixel final {
 private:
-  int color;
+  const int color;
 public:
   explicit pixel(int color);
 
