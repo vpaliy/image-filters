@@ -17,9 +17,9 @@ jintArray gamma_correction::process() {
   for (int i = 0; i < _size; i++) {
     pixel _pixel = pixel(pixels[i]);
 
-    int r = (int) (255 * std::pow((_pixel.R() / 255), 1 / _options.gamma));
-    int g = (int) (255 * std::pow((_pixel.G() / 255), 1 / _options.gamma));
-    int b = (int) (255 * std::pow((_pixel.B() / 255), 1 / _options.gamma));
+    int r = (int) (255 * std::pow((_pixel.R() / 255), 1.f / _options.gamma));
+    int g = (int) (255 * std::pow((_pixel.G() / 255), 1.f / _options.gamma));
+    int b = (int) (255 * std::pow((_pixel.B() / 255), 1.f / _options.gamma));
 
     pixels[i] = pixel::fromRGBA(_pixel.alpha(), r, g, b);
   }

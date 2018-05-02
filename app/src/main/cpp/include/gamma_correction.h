@@ -8,14 +8,14 @@ namespace filters {
   class gamma_correction final : filter {
   public:
     struct options {
-      int gamma;
-      explicit options(int gamma) : gamma(gamma) {}
+      float gamma;
+      explicit options(float gamma) : gamma(gamma) {}
     };
 
     gamma_correction(width const &, height const &,
                       std::shared_ptr<pixels_wrapper>, options const &);
 
-    virtual jintArray process() = 0;
+    jintArray process() override;
 
   private:
     options _options;

@@ -18,7 +18,7 @@ namespace filters {
                   std::shared_ptr<pixels_wrapper>,
                   options const &);
 
-    virtual jintArray process() = 0;
+    jintArray process() override;
 
   private:
     options _options;

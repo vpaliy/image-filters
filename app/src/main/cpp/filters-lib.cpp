@@ -30,7 +30,7 @@ Java_com_paliy_filters_NativeFilters_contrast(JNIEnv *env, jclass type, jint wid
 
 JNIEXPORT jintArray JNICALL
 Java_com_paliy_filters_NativeFilters_gammaCorrection(JNIEnv *env, jclass type, jint width_,
-                                                     jint height_, jintArray pixels_, jint gamma) {
+                                                     jint height_, jintArray pixels_, jfloat gamma) {
   pixels_wrapper *_wrapper = new pixels_wrapper(env, pixels_);
   gamma_correction _filter = gamma_correction(width(width_), height(height_),
                                 std::shared_ptr<pixels_wrapper>(_wrapper),

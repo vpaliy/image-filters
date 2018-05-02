@@ -5,8 +5,8 @@
 #include "include/gaussian_blur.h"
 
 using namespace filters;
-using row = std::vector<double>
-using matrix = std::vector<row>
+using row = std::vector<double> ;
+using matrix = std::vector<row> ;
 
 
 static

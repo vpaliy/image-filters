@@ -15,7 +15,7 @@ Java_com_paliy_filters_NativeFilters_contrast(JNIEnv *env, jclass type, jint wid
                                               jintArray pixels_, jint factor);
 JNIEXPORT jintArray JNICALL
 Java_com_paliy_filters_NativeFilters_gammaCorrection(JNIEnv *env, jclass type, jint width,
-                                                     jint height, jintArray pixels_, jint gamma);
+                                                     jint height, jintArray pixels_, jfloat gamma);
 JNIEXPORT jintArray JNICALL
 Java_com_paliy_filters_NativeFilters_gaussianBlur(JNIEnv *env, jclass type, jint width, jint height,
                                                   jintArray pixels_, jint gamma);

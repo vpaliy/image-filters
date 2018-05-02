@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.paliy.filters.BrightnessFilter
 import com.paliy.filters.ContrastFilter
+import com.paliy.filters.GammaCorrection
 import com.paliy.filters.R
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -70,6 +72,8 @@ class MainActivity : AppCompatActivity() {
     (1..255).forEach {
       val brightness = Thumbnail(R.string.brightness, BrightnessFilter(bitmap, it))
       val contrast = Thumbnail(R.string.contrast, ContrastFilter(bitmap, it))
+      val gammaCorrection = Thumbnail(R.string.gamma_correction, GammaCorrection(bitmap, (7f * it ) / 255f))
+      list +=  gammaCorrection
       list += contrast
       list += brightness
     }
